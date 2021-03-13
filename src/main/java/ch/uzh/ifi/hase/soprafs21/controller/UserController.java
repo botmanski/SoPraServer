@@ -3,6 +3,7 @@ package ch.uzh.ifi.hase.soprafs21.controller;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.rest.dto.UserGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.dto.UserPostDTO;
+import ch.uzh.ifi.hase.soprafs21.rest.dto.LoginPostDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.mapper.DTOMapper;
 import ch.uzh.ifi.hase.soprafs21.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -52,5 +53,15 @@ public class UserController {
 
         // convert internal representation of user back to API
         return DTOMapper.INSTANCE.convertEntityToUserGetDTO(createdUser);
+    }
+
+    // creating login Endpoint
+    @PostMapping("/login")
+    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
+    public UserGetDTO createUser(@RequestBody LoginPostDTO loginPostDTO) {
+        // convert API user to internal representation
+        User userInput = DTOMapper.INSTANCE.convertLoginPostDTOtoEntity(loginPostDTO);
+        return DTOMapper.INSTANCE.convertEntityToUserGetDTO(userService.Login(userInput));
     }
 }

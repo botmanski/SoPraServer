@@ -51,6 +51,17 @@ public class UserService {
         return newUser;
     }
 
+    // do el refactoring
+    public User Login(User inputUser) {
+        User user = userRepository.findByUsername(inputUser.getUsername());
+        if(user != null) {
+            if(user.getPassword().equals(inputUser.getPassword())) {
+                return user;
+            }
+        }
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "wrong user or password combination");
+    }
+
     /**
      * This is a helper method that will check the uniqueness criteria of the username and the name
      * defined in the User entity. The method will do nothing if the input is unique and throw an error otherwise.

@@ -28,6 +28,17 @@ public class User implements Serializable {
     @Column(nullable = false, unique = true)
     private String username;
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Column(nullable = false, unique = true)
+    private String password;
+
     @Column(nullable = false, unique = true)
     private String token;
 

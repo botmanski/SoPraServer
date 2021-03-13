@@ -9,6 +9,16 @@ public class UserGetDTO {
     private String username;
     private UserStatus status;
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    private String token;
+
     public Long getId() {
         return id;
     }
