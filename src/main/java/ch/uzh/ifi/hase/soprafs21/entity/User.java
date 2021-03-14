@@ -23,10 +23,19 @@ public class User implements Serializable {
     private Long id;
 
     @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false, unique = true)
     private String username;
+
+    @Column(nullable = false, unique = true)
+    private String token;
+
+    @Column(nullable = false)
+    private UserStatus status;
 
     public String getPassword() {
         return password;
@@ -35,16 +44,6 @@ public class User implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    @Column(nullable = false, unique = true)
-    private String password;
-
-    @Column(nullable = false, unique = true)
-    private String token;
-
-    @Column(nullable = false)
-    private UserStatus status;
-
     public Long getId() {
         return id;
     }

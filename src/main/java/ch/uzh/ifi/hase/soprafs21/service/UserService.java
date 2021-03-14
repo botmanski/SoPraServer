@@ -39,7 +39,7 @@ public class UserService {
 
     public User createUser(User newUser) {
         newUser.setToken(UUID.randomUUID().toString());
-        newUser.setStatus(UserStatus.OFFLINE);
+        newUser.setStatus(UserStatus.ONLINE);
 
         checkIfUserExists(newUser);
 
@@ -51,15 +51,43 @@ public class UserService {
         return newUser;
     }
 
-    // do el refactoring
+    //TODO: ask Joël or Dennis if this function is even neccessary because UserRepository should have findById right?
+    public User findUserById(long userId) {
+        User user = userRepository.findById(userId);
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, " User does not exist with this ID.");
+        } else {
+            return user;
+        }
+    }
+
+    //TODO: do el refactoring
     public User Login(User inputUser) {
         User user = userRepository.findByUsername(inputUser.getUsername());
         if(user != null) {
             if(user.getPassword().equals(inputUser.getPassword())) {
+                user.setStatus(UserStatus.ONLINE);
                 return user;
             }
         }
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "wrong user or password combination");
+    }
+
+    //TODO: im quite confused with this one. Logout would only be called if someone's logged in, so it does not make
+    //      to make the check for the inputUser != null right?
+    //TODO: Therefor the check for the token. If the token is still set, that means that it did not expire,
+    //      hence the user is still logged in?!
+    public User Logout(User inputUser) {
+        if(inputUser.getToken() != null) {
+            // is this line underneath redundant?
+            inputUser.setToken(null);
+            inputUser.setStatus(UserStatus.OFFLINE);
+            return inputUser;
+        }
+        else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User is not logged in anymore. Maybe your login-token has expired or some other" +
+                    " unforseeable shenanigans have occured such that this exception is thrown");
+        }
     }
 
     /**
