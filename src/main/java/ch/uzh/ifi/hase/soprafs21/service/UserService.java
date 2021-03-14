@@ -39,8 +39,14 @@ public class UserService {
     }
 
     public User createUser(User newUser) {
+        //create datge speichere
+
+
+
         newUser.setToken(UUID.randomUUID().toString());
         newUser.setStatus(UserStatus.ONLINE);
+        Date creationDate = new Date();
+        newUser.setCreationDate(creationDate);
 
         checkIfUserExists(newUser);
 

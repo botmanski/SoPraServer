@@ -11,7 +11,7 @@ public class UserGetDTO {
     private String username;
     private Date creationDate;
     private UserStatus status;
-    private Date birthDay;
+    private String birthDay;
     private String token;
 
     public Date getCreationDate() {
@@ -22,11 +22,11 @@ public class UserGetDTO {
         this.creationDate = creationDate;
     }
 
-    public Date getBirthDay() {
+    public String getBirthDay() {
         return birthDay;
     }
 
-    public void setBirthDay(Date birthDay) {
+    public void setBirthDay(String birthDay) {
         this.birthDay = birthDay;
     }
 

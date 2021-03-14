@@ -9,23 +9,23 @@ public class UsersGetDTO {
     private Long id;
     private String name;
     private String username;
-    private Date creationDate;
+    private String creationDate;
     private UserStatus status;
-    private Date birthDay;
+    private String birthDay;
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 
-    public Date getBirthDay() {
+    public String getBirthDay() {
         return birthDay;
     }
 
-    public void setBirthDay(Date birthDay) {
+    public void setBirthDay(String birthDay) {
         this.birthDay = birthDay;
     }
 

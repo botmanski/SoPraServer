@@ -39,16 +39,16 @@ public class User implements Serializable {
     private UserStatus status;
 
     @Column
-    private Date birthDay;
+    private String birthDay;
 
     @Column
     private Date creationDate;
 
-    public Date getBirthDay() {
+    public String getBirthDay() {
         return birthDay;
     }
 
-    public void setBirthDay(Date birthDate) {
+    public void setBirthDay(String birthDate) {
         this.birthDay = birthDate;
     }
 

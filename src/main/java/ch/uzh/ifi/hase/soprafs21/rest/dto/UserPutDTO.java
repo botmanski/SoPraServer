@@ -5,13 +5,13 @@ import java.util.Date;
 public class UserPutDTO {
     private String name;
     private String username;
-    private Date birthDay;
+    private String birthDay;
 
-    public Date getBirthDay() {
+    public String getBirthDay() {
         return birthDay;
     }
 
-    public void setBirthDay(Date birthDay) {
+    public void setBirthDay(String birthDay) {
         this.birthDay = birthDay;
     }
 
