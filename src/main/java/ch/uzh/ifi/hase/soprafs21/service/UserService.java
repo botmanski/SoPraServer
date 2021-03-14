@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -59,6 +60,12 @@ public class UserService {
         } else {
             return user;
         }
+    }
+
+    //TODO: edit-logic has to be implemented
+    public void edit(long id, Date birthDate, String username) {
+        User user = userRepository.findById(id);
+
     }
 
     //TODO: do el refactoring

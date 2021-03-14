@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs21.controller;
 
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.rest.dto.UserGetDTO;
+import ch.uzh.ifi.hase.soprafs21.rest.dto.UsersGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.dto.UserPostDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.dto.LoginPostDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.mapper.DTOMapper;
@@ -29,27 +30,27 @@ public class UserController {
     }
 
     /**
-    * 201 - CREATED    check
-    * 409 - CONFLICT
-    * 200 - OK         check
-    * 404 - NOT_FOUND
-    * 204 - NO_CONTENT
-    **/
+     * 201 - CREATED    check
+     * 409 - CONFLICT
+     * 200 - OK         check
+     * 404 - NOT_FOUND
+     * 204 - NO_CONTENT check
+     **/
 
     // 1
     @GetMapping("/users")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public List<UserGetDTO> getAllUsers() {
+    public List<UsersGetDTO> getAllUsers() {
         // fetch all users in the internal representation
         List<User> users = userService.getUsers();
-        List<UserGetDTO> userGetDTOs = new ArrayList<UserGetDTO>();
+        List<UsersGetDTO> usersGetDTO = new ArrayList<UsersGetDTO>();
 
         // convert each user to the API representation
         for (User user : users) {
-            userGetDTOs.add(DTOMapper.INSTANCE.convertEntityToUserGetDTO(user));
+            usersGetDTO.add(DTOMapper.INSTANCE.convertEntityToUsersGetDTO(user));
         }
-        return userGetDTOs;
+        return usersGetDTO;
     }
 
     // 2
@@ -95,10 +96,24 @@ public class UserController {
     // Simply put, the @RequestBody annotation maps the HttpRequest body to a transfer or domain object,
     // enabling automatic deserialization of the inbound HttpRequest body onto a Java object.
     @PutMapping("/logout")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @ResponseBody
-    public UserGetDTO logout(@RequestBody LoginPostDTO loginPostDTO) {
+    public UserGetDTO logoutUser(@RequestBody LoginPostDTO loginPostDTO) {
         User userInput = DTOMapper.INSTANCE.convertLoginPostDTOtoEntity(loginPostDTO);
         return DTOMapper.INSTANCE.convertEntityToUserGetDTO(userService.Logout(userInput));
     }
 }
+
+    /*
+    // 6
+    // edit Controller
+    //TODO: not finished yet
+    @PutMapping("/users/{usersId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseBody
+    public UserGetDTO editUser(@RequestBody UserGetDTO userGetDTO) {
+        User userInput = DTOMapper.INSTANCE.conver
+        return DTOMapper.INSTANCE.convertEntityToUserGetDTO(userService.edit(userInput));
+    }
+}
+     */

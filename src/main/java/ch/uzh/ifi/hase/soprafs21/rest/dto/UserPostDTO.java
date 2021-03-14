@@ -3,8 +3,8 @@ package ch.uzh.ifi.hase.soprafs21.rest.dto;
 public class UserPostDTO {
 
     private String name;
-
     private String username;
+    private String password;
 
     public String getPassword() {
         return password;
@@ -13,8 +13,6 @@ public class UserPostDTO {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    private String password;
 
     public String getName() {
         return name;

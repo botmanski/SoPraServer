@@ -4,7 +4,7 @@ import ch.uzh.ifi.hase.soprafs21.constant.UserStatus;
 
 import java.util.Date;
 
-public class UserGetDTO {
+public class UsersGetDTO {
 
     private Long id;
     private String name;
@@ -12,7 +12,6 @@ public class UserGetDTO {
     private Date creationDate;
     private UserStatus status;
     private Date birthDay;
-    private String token;
 
     public Date getCreationDate() {
         return creationDate;
@@ -28,14 +27,6 @@ public class UserGetDTO {
 
     public void setBirthDay(Date birthDay) {
         this.birthDay = birthDay;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 
     public Long getId() {
