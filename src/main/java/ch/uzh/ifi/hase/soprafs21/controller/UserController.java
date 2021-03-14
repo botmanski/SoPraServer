@@ -1,10 +1,7 @@
 package ch.uzh.ifi.hase.soprafs21.controller;
 
 import ch.uzh.ifi.hase.soprafs21.entity.User;
-import ch.uzh.ifi.hase.soprafs21.rest.dto.UserGetDTO;
-import ch.uzh.ifi.hase.soprafs21.rest.dto.UsersGetDTO;
-import ch.uzh.ifi.hase.soprafs21.rest.dto.UserPostDTO;
-import ch.uzh.ifi.hase.soprafs21.rest.dto.LoginPostDTO;
+import ch.uzh.ifi.hase.soprafs21.rest.dto.*;
 import ch.uzh.ifi.hase.soprafs21.rest.mapper.DTOMapper;
 import ch.uzh.ifi.hase.soprafs21.service.UserService;
 import org.springframework.data.annotation.QueryAnnotation;
@@ -102,18 +99,16 @@ public class UserController {
         User userInput = DTOMapper.INSTANCE.convertLoginPostDTOtoEntity(loginPostDTO);
         return DTOMapper.INSTANCE.convertEntityToUserGetDTO(userService.Logout(userInput));
     }
-}
 
-    /*
+
     // 6
     // edit Controller
     //TODO: not finished yet
     @PutMapping("/users/{usersId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ResponseBody
-    public UserGetDTO editUser(@RequestBody UserGetDTO userGetDTO) {
-        User userInput = DTOMapper.INSTANCE.conver
-        return DTOMapper.INSTANCE.convertEntityToUserGetDTO(userService.edit(userInput));
+    public void editUser(@RequestBody UserPutDTO userPutDTO, @PathVariable("userId") long userId) {
+        User user = DTOMapper.INSTANCE.convertUserPutDTOToEntity(userPutDTO);
+        user = userService.edit(userId, user);
     }
 }
-     */

@@ -52,7 +52,6 @@ public class UserService {
         return newUser;
     }
 
-    //TODO: ask Joël or Dennis if this function is even neccessary because UserRepository should have findById right?
     public User findUserById(long userId) {
         User user = userRepository.findById(userId);
         if (user == null) {
@@ -63,9 +62,13 @@ public class UserService {
     }
 
     //TODO: edit-logic has to be implemented
-    public void edit(long id, Date birthDate, String username) {
+    public User edit(long id, User userInput) {
+        //TODO: exception
         User user = userRepository.findById(id);
-
+        user.setUsername(userInput.getUsername());
+        user.setBirthDay(userInput.getBirthDay());
+        user.setName(userInput.getName());
+        return user;
     }
 
     //TODO: do el refactoring
@@ -80,14 +83,8 @@ public class UserService {
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "wrong user or password combination");
     }
 
-    //TODO: im quite confused with this one. Logout would only be called if someone's logged in, so it does not make
-    //      to make the check for the inputUser != null right?
-    //TODO: Therefor the check for the token. If the token is still set, that means that it did not expire,
-    //      hence the user is still logged in?!
     public User Logout(User inputUser) {
         if(inputUser.getToken() != null) {
-            // is this line underneath redundant?
-            inputUser.setToken(null);
             inputUser.setStatus(UserStatus.OFFLINE);
             return inputUser;
         }
