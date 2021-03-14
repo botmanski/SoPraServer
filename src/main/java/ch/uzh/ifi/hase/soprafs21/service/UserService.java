@@ -34,14 +34,19 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    public User getUserByToken(String token){
+        User user = userRepository.findByToken(token);
+        if( user == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "invalid token");
+        }
+        return user;
+    }
     public List<User> getUsers() {
         return this.userRepository.findAll();
     }
 
     public User createUser(User newUser) {
         //create datge speichere
-
-
 
         newUser.setToken(UUID.randomUUID().toString());
         newUser.setStatus(UserStatus.ONLINE);
@@ -61,7 +66,7 @@ public class UserService {
     public User findUserById(long userId) {
         User user = userRepository.findById(userId);
         if (user == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, " User does not exist with this ID.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, " User does not exist with this ID.");
         } else {
             return user;
         }
@@ -69,8 +74,7 @@ public class UserService {
 
     //TODO: edit-logic has to be implemented
     public User edit(long id, User userInput) {
-        //TODO: exception
-        User user = userRepository.findById(id);
+        User user =  userRepository.findById(id);
         user.setUsername(userInput.getUsername());
         user.setBirthDay(userInput.getBirthDay());
         user.setName(userInput.getName());

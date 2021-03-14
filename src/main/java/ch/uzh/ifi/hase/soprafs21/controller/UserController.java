@@ -8,6 +8,7 @@ import org.springframework.data.annotation.QueryAnnotation;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,6 +84,9 @@ public class UserController {
     @ResponseBody
     public UserGetDTO getUserById(@PathVariable("userId") long userId) {
         User user = userService.findUserById(userId);
+        if(user == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, " User does not exist with this ID.");
+        }
         return DTOMapper.INSTANCE.convertEntityToUserGetDTO(user);
     }
 
@@ -104,11 +108,19 @@ public class UserController {
     // 6
     // edit Controller
     //TODO: not finished yet
-    @PutMapping("/users/{usersId}")
+    @PutMapping("/users/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ResponseBody
     public void editUser(@RequestBody UserPutDTO userPutDTO, @PathVariable("userId") long userId) {
         User user = DTOMapper.INSTANCE.convertUserPutDTOToEntity(userPutDTO);
         user = userService.edit(userId, user);
+    }
+    // 7
+    @PostMapping("/token")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public UserGetDTO userByToken(@RequestBody UserGetDTO userGetDTO) {
+        User user = userService.getUserByToken(userGetDTO.getToken());
+        return DTOMapper.INSTANCE.convertEntityToUserGetDTO(user);
     }
 }
