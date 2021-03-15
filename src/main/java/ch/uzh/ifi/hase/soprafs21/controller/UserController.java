@@ -29,9 +29,9 @@ public class UserController {
 
     /**
      * 201 - CREATED    check
-     * 409 - CONFLICT
+     * 409 - CONFLICT   not included
      * 200 - OK         check
-     * 404 - NOT_FOUND
+     * 404 - NOT_FOUND  check
      * 204 - NO_CONTENT check
      **/
 
